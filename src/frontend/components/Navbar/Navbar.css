@@ -41,24 +41,9 @@
   color: var(--ghost-color);
 }
 
-.badge {
-  font-family: "PT Sans Narrow", sans-serif;
-  background-color: var(--info-color);
-}
-
-.badge-position {
-  margin: -12px;
-  right: 126px;
-}
-
-.header-account-link {
-  padding-bottom: 5px;
-}
-
 .header-account-link:hover {
   cursor: pointer;
   color: var(--ghost-color);
-  border-bottom: 1.5px solid var(--base-gray-color);
 }
 
 .dropDown {
