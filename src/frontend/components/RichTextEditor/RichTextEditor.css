@@ -1,0 +1,21 @@
+div.ql-editor {
+  color: var(--font-color);
+  font-size: 1.5rem;
+  font-family: "PT Sans Narrow", sans-serif;
+}
+
+.ql-toolbar.ql-snow {
+  display: flex;
+  border: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.ql-container.ql-snow {
+  border: none;
+}
+
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: var(--base-gray-color);
+}
