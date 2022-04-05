@@ -10,7 +10,7 @@ import {
   SignUpScreen,
 } from "../screens";
 import Mockman from "mockman-js";
-import { PrivateRoute } from "../components/PrivateRoute/PrivateRoute";
+import { PrivateRoute } from "../components";
 import { useAuth } from "../contexts";
 
 const Router = () => {

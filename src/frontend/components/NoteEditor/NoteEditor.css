@@ -1,0 +1,112 @@
+.note-editor-container {
+  margin-top: 10rem;
+  border: 1px solid var(--input-border-color);
+  width: 30rem;
+  height: fit-content;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.title-input {
+  padding: 1rem;
+  font-size: 2rem;
+  border: none;
+  font-weight: bold;
+  color: var(--font-color);
+  background-color: transparent;
+  font-family: "PT Sans Narrow", sans-serif;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
+.unpinned {
+  color: var(--base-gray-color);
+}
+
+.unpinned:hover {
+  color: var(--font-color);
+}
+
+.attributes-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.attributes-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.attribues-icon:hover {
+  cursor: pointer;
+}
+
+.color-palette {
+  position: absolute;
+  top: 3.5rem;
+  left: 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--base-gray-color);
+  background-color: var(--body-bg-color);
+  display: flex;
+  gap: 1rem;
+}
+
+.color-palette > div {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.color-palette > div:hover {
+  border: 1px solid var(--font-color);
+}
+
+.color-1 {
+  background-color: var(--info-color);
+}
+
+.color-2 {
+  background-color: var(--success-color);
+}
+
+.color-3 {
+  background-color: var(--danger-color);
+}
+
+.labels-list {
+  position: absolute;
+  top: 3.5rem;
+  left: 3rem;
+  padding: 0.8rem;
+  border: 1px solid var(--base-gray-color);
+  background-color: var(--body-bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.labels-list > div {
+  font-size: 1.2rem;
+  color: var(--font-color);
+  border-bottom: 1px solid var(--base-gray-color);
+  cursor: pointer;
+}
+
+.add-note-btn {
+  color: var(--body-bg-color);
+  font-weight: 600;
+}
