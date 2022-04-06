@@ -1,5 +1,21 @@
 .notes-container {
-    display: flex;
-    flex-direction: row;
-    min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+}
+
+.notes-main-container {
+  display: flex;
+  gap: 5rem;
+}
+
+.notes-list-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-pinned-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20rem;
 }
