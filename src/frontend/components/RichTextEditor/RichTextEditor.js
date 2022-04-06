@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./RichTextEditor.css";
+import { CONTENT } from "../../constants/noteConstants";
 
 export const modules = {
   toolbar: {
@@ -23,13 +24,7 @@ export const formats = [
   "code-block",
 ];
 
-const RichTextEditor = () => {
-  const [state, setState] = useState({ value: null });
-
-  const handleChange = (value) => {
-    setState({ value });
-  };
-
+const RichTextEditor = ({ content, setValue }) => {
   return (
     <div className="rich-text-editor-container">
       <div id="toolbar">
@@ -54,8 +49,8 @@ const RichTextEditor = () => {
 
       <ReactQuill
         theme="snow"
-        value={state.value}
-        onChange={handleChange}
+        value={content}
+        onChange={(value) => setValue({ type: CONTENT, payload: value })}
         placeholder="Start writing here..."
         modules={modules}
         formats={formats}
