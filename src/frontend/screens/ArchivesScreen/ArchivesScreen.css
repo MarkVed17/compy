@@ -1,5 +1,9 @@
 .archives-container {
-    display: flex;
-    flex-direction: row;
-    min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+}
+
+.notes-archived-wrapper {
+  margin-top: 5rem;
 }
