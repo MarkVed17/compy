@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useAuth, useArchives } from "../../contexts";
 import { updateNoteService, addArchiveNoteService } from "../../services";
 import { noteEditDetailsReducer } from "../../reducers";
