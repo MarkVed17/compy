@@ -3,3 +3,7 @@
   flex-direction: row;
   min-height: 80vh;
 }
+
+.notes-trashed-wrapper {
+  margin-top: 5rem;
+}
