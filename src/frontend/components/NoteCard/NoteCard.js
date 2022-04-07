@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useAuth } from "../../contexts";
-import { updateNoteService } from "../../services";
+import { useAuth, useArchives } from "../../contexts";
+import { updateNoteService, addArchiveNoteService } from "../../services";
 import "./NoteCard.css";
 
 const NoteCard = ({ note, setNotes }) => {
@@ -10,6 +10,7 @@ const NoteCard = ({ note, setNotes }) => {
   const [labelMenu, setLabelMenu] = useState(false);
 
   const { auth } = useAuth();
+  const { setArchives } = useArchives();
 
   const pinToggle = async () => {
     const response = await updateNoteService(auth.token, {
@@ -35,6 +36,25 @@ const NoteCard = ({ note, setNotes }) => {
     const response = await updateNoteService(auth.token, {
       ...note,
       label: newLabel,
+    });
+    if (response !== undefined) {
+      setNotes(response);
+    }
+  };
+
+  const archiveHandler = async () => {
+    const response = await addArchiveNoteService(auth.token, note);
+    if (response !== undefined) {
+      setNotes(response.notes);
+      setArchives(response.archives);
+    }
+  };
+
+  const trashHandler = async () => {
+    const response = await updateNoteService(auth.token, {
+      ...note,
+      isPinned: false,
+      trash: true,
     });
     if (response !== undefined) {
       setNotes(response);
@@ -69,10 +89,7 @@ const NoteCard = ({ note, setNotes }) => {
       ></p>
 
       {label && (
-        <div
-          className="note-card-label"
-          onClick={() => labelPicker("")}
-        >
+        <div className="note-card-label" onClick={() => labelPicker("")}>
           {label}
         </div>
       )}
@@ -147,12 +164,14 @@ const NoteCard = ({ note, setNotes }) => {
           <span
             className="material-icons attributes-icon"
             title="Move to Archive"
+            onClick={() => archiveHandler()}
           >
             inventory_2
           </span>
           <span
             className="material-icons attributes-icon"
             title="Move to Trash"
+            onClick={() => trashHandler()}
           >
             delete
           </span>
