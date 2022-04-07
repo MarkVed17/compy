@@ -4,7 +4,7 @@ import { NoteCard } from "../../components";
 
 const PinnedNotesList = () => {
   const { notes, setNotes } = useNotes();
-  const pinnedNotes = notes.filter((note) => note.isPinned);
+  const pinnedNotes = notes.filter((note) => note.isPinned && !note.trash);
 
   return (
     <>

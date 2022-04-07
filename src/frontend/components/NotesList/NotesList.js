@@ -4,7 +4,7 @@ import { NoteCard } from "../../components";
 
 const NotesList = () => {
   const { notes, setNotes } = useNotes();
-  const normalNotes = notes.filter((note) => !note.isPinned);
+  const normalNotes = notes.filter((note) => !note.isPinned && !note.trash);
 
   return (
     <>
