@@ -1,0 +1,38 @@
+.note-card-container {
+  margin-top: 3rem;
+  border: 1px solid var(--input-border-color);
+  width: 30rem;
+  height: fit-content;
+}
+
+.note-card-container > .title-wrapper {
+  justify-content: space-between;
+}
+
+.note-card-title {
+  margin: 0;
+  padding: 1rem;
+  word-break: break-all;
+}
+
+.note-card-content {
+  padding: 0 1rem;
+  color: var(--font-color);
+  font-size: 1.5rem;
+  word-wrap: break-word;
+}
+
+.note-card-content > p > img {
+  width: 100%;
+  height: 100%;
+}
+
+.note-card-label {
+  margin: 0 1rem;
+  padding: 2px 5px;
+  font-size: 1rem;
+  color: var(--font-color);
+  background-color: var(--input-bg-color);
+  width: fit-content;
+  cursor: pointer;
+}

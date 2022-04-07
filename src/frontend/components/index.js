@@ -4,3 +4,6 @@ export { Sidebar } from "./Sidebar/Sidebar";
 export { PrivateRoute } from "./PrivateRoute/PrivateRoute";
 export { RichTextEditor } from "./RichTextEditor/RichTextEditor";
 export { NoteEditor } from "./NoteEditor/NoteEditor";
+export { NoteCard } from "./NoteCard/NoteCard";
+export { NotesList } from "./NotesList/NotesList";
+export { PinnedNotesList } from "./PinnedNotesList/PinnedNotesList";
