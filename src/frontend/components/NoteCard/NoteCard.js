@@ -1,16 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { useAuth, useArchives } from "../../contexts";
 import { updateNoteService, addArchiveNoteService } from "../../services";
+import { noteEditDetailsReducer } from "../../reducers";
+import { NoteCardEditor } from "../../components";
+import {
+  TITLE_TOGGLE,
+  NEW_TITLE,
+  CONTENT_TOGGLE,
+  COLOR_MENU,
+  LABEL_MENU,
+} from "../../constants/noteEditConstants";
 import "./NoteCard.css";
 
 const NoteCard = ({ note, setNotes }) => {
   const { title, isPinned, label, content, color } = note;
 
-  const [colorMenu, setColorMenu] = useState(false);
-  const [labelMenu, setLabelMenu] = useState(false);
+  const noteEditDetailsInitialState = {
+    colorMenu: false,
+    labelMenu: false,
+    titleToggle: true,
+    contentToggle: true,
+    newTitle: title,
+    newContent: content,
+  };
+
+  const colors = ["color-1", "color-2", "color-3", "color-4"];
+  const labels = ["Label 1", "Label 2"];
+
+  const [noteEditDetails, dispatchNoteEditDetails] = useReducer(
+    noteEditDetailsReducer,
+    noteEditDetailsInitialState
+  );
+
+  const {
+    colorMenu,
+    labelMenu,
+    titleToggle,
+    contentToggle,
+    newTitle,
+    newContent,
+  } = noteEditDetails;
 
   const { auth } = useAuth();
   const { setArchives } = useArchives();
+
+  const titleEdit = async (newTitle) => {
+    const response = await updateNoteService(auth.token, {
+      ...note,
+      title: newTitle,
+    });
+    if (response !== undefined) {
+      setNotes(response);
+    }
+  };
+
+  const contentEdit = async (newContent) => {
+    const response = await updateNoteService(auth.token, {
+      ...note,
+      content: newContent,
+    });
+    if (response !== undefined) {
+      setNotes(response);
+    }
+  };
 
   const pinToggle = async () => {
     const response = await updateNoteService(auth.token, {
@@ -61,10 +113,44 @@ const NoteCard = ({ note, setNotes }) => {
     }
   };
 
+  const handleContentEditBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      dispatchNoteEditDetails({ type: CONTENT_TOGGLE, payload: true });
+    }
+  };
+
   return (
     <div className={`note-card-container ${color}`}>
       <div className="title-wrapper">
-        <h1 className="note-card-title">{title}</h1>
+        {titleToggle ? (
+          <h1
+            className="note-card-title"
+            onClick={() =>
+              dispatchNoteEditDetails({ type: TITLE_TOGGLE, payload: false })
+            }
+          >
+            {newTitle}
+          </h1>
+        ) : (
+          <input
+            type="text"
+            className="title-input"
+            // placeholder="Title"
+            value={newTitle}
+            autoFocus
+            onBlur={() => {
+              dispatchNoteEditDetails({ type: TITLE_TOGGLE, payload: true });
+              titleEdit(newTitle);
+            }}
+            onChange={(e) =>
+              dispatchNoteEditDetails({
+                type: NEW_TITLE,
+                payload: e.target.value,
+              })
+            }
+          />
+        )}
+
         <div onClick={() => pinToggle()}>
           {isPinned ? (
             <span
@@ -83,10 +169,29 @@ const NoteCard = ({ note, setNotes }) => {
           )}
         </div>
       </div>
-      <p
-        className="note-card-content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      ></p>
+
+      <div
+        className="flex--column note__copyContainer"
+        onBlur={(e) => {
+          handleContentEditBlur(e);
+          contentEdit(newContent);
+        }}
+      >
+        {contentToggle ? (
+          <p
+            className="note-card-content"
+            dangerouslySetInnerHTML={{ __html: newContent }}
+            onClick={() =>
+              dispatchNoteEditDetails({ type: CONTENT_TOGGLE, payload: false })
+            }
+          ></p>
+        ) : (
+          <NoteCardEditor
+            content={newContent}
+            setValue={dispatchNoteEditDetails}
+          />
+        )}
+      </div>
 
       {label && (
         <div className="note-card-label" onClick={() => labelPicker("")}>
@@ -99,8 +204,11 @@ const NoteCard = ({ note, setNotes }) => {
           <span
             className="material-icons attributes-icon"
             onClick={() => {
-              setLabelMenu(false);
-              setColorMenu(!colorMenu);
+              dispatchNoteEditDetails({
+                type: COLOR_MENU,
+                payload: !colorMenu,
+              });
+              dispatchNoteEditDetails({ type: LABEL_MENU, payload: false });
             }}
             title="Choose any color"
           >
@@ -108,34 +216,29 @@ const NoteCard = ({ note, setNotes }) => {
           </span>
           {colorMenu && (
             <div className="color-palette">
-              <div
-                className="color-1"
-                onClick={() => {
-                  setColorMenu(false);
-                  colorPicker("note-color-1");
-                }}
-              ></div>
-              <div
-                className="color-2"
-                onClick={() => {
-                  setColorMenu(false);
-                  colorPicker("note-color-2");
-                }}
-              ></div>
-              <div
-                className="color-3"
-                onClick={() => {
-                  setColorMenu(false);
-                  colorPicker("note-color-3");
-                }}
-              ></div>
+              {colors.map((color) => (
+                <div
+                  key={color}
+                  className={color}
+                  onClick={() => {
+                    dispatchNoteEditDetails({
+                      type: COLOR_MENU,
+                      payload: false,
+                    });
+                    colorPicker(`note-${color}`);
+                  }}
+                ></div>
+              ))}
             </div>
           )}
           <span
             className="material-icons attributes-icon"
             onClick={() => {
-              setLabelMenu(!labelMenu);
-              setColorMenu(false);
+              dispatchNoteEditDetails({
+                type: LABEL_MENU,
+                payload: !labelMenu,
+              });
+              dispatchNoteEditDetails({ type: COLOR_MENU, payload: false });
             }}
             title="Choose any Label"
           >
@@ -143,22 +246,20 @@ const NoteCard = ({ note, setNotes }) => {
           </span>
           {labelMenu && (
             <div className="labels-list">
-              <div
-                onClick={() => {
-                  setLabelMenu(false);
-                  labelPicker("Label 1");
-                }}
-              >
-                Label 1
-              </div>
-              <div
-                onClick={() => {
-                  setLabelMenu(false);
-                  labelPicker("Label 2");
-                }}
-              >
-                Label 2
-              </div>
+              {labels.map((label) => (
+                <div
+                  key={label}
+                  onClick={() => {
+                    dispatchNoteEditDetails({
+                      type: LABEL_MENU,
+                      payload: false,
+                    });
+                    labelPicker(label);
+                  }}
+                >
+                  {label}
+                </div>
+              ))}
             </div>
           )}
           <span
