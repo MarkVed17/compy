@@ -4,3 +4,7 @@ export { getNotesService } from "./notes-services/getNotesService";
 export { addNoteService } from "./notes-services/addNoteService";
 export { updateNoteService } from "./notes-services/updateNoteService";
 export { deleteNoteService } from "./notes-services/deleteNoteService";
+export { getArchiveNotesService } from "./archive-services/getArchiveNotesService";
+export { addArchiveNoteService } from "./archive-services/addArchiveNoteService";
+export { restoreArchiveNoteService } from "./archive-services/restoreArchiveNoteService";
+export { deleteArchiveNoteService } from "./archive-services/deleteArchiveNoteService";
