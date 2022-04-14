@@ -5,3 +5,4 @@ export { ArchivesScreen } from "./ArchivesScreen/ArchivesScreen";
 export { NotesScreen } from "./NotesScreen/NotesScreen";
 export { LabelsScreen } from "./LabelsScreen/LabelsScreen";
 export { TrashScreen } from "./TrashScreen/TrashScreen";
+export { SearchScreen } from "./SearchScreen/SearchScreen";

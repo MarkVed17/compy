@@ -1,0 +1,11 @@
+.search-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+}
+
+.searched-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12rem;
+}
