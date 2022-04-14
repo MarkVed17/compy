@@ -1,4 +1,5 @@
 import React from "react";
+import Moment from "react-moment";
 import { useAuth, useNotes } from "../../contexts";
 import {
   restoreArchiveNoteService,
@@ -6,7 +7,7 @@ import {
 } from "../../services";
 
 const ArchiveNoteCard = ({ note, setArchives }) => {
-  const { _id, title, label, content, color } = note;
+  const { _id, title, label, content, color, priority, createdAt } = note;
 
   const { auth } = useAuth();
   const { setNotes } = useNotes();
@@ -36,7 +37,10 @@ const ArchiveNoteCard = ({ note, setArchives }) => {
         dangerouslySetInnerHTML={{ __html: content }}
       ></p>
 
-      {label && <div className="note-card-label">{label}</div>}
+      <div className="notes-label-priority-wrapper">
+        {label && <div className="note-editor-label">{label}</div>}
+        <div className="note-editor-label priority-label">{priority}</div>
+      </div>
 
       <div className="attributes-wrapper">
         <div className="attributes-actions">
@@ -54,6 +58,9 @@ const ArchiveNoteCard = ({ note, setArchives }) => {
           >
             delete_forever
           </span>
+        </div>
+        <div className="note-moment">
+          <Moment fromNow>{createdAt}</Moment>
         </div>
       </div>
     </div>

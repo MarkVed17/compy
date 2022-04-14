@@ -1,9 +1,10 @@
 import React from "react";
+import Moment from "react-moment";
 import { useAuth } from "../../contexts";
 import { deleteNoteService, updateNoteService } from "../../services";
 
 const TrashNoteCard = ({ note, setNotes }) => {
-  const { _id, title, label, content, color } = note;
+  const { _id, title, label, content, color, priority, createdAt } = note;
 
   const { auth } = useAuth();
 
@@ -35,6 +36,7 @@ const TrashNoteCard = ({ note, setNotes }) => {
       ></p>
 
       {label && <div className="note-card-label">{label}</div>}
+      <div className="note-editor-label priority-label">{priority}</div>
 
       <div className="attributes-wrapper">
         <div className="attributes-actions">
@@ -52,6 +54,9 @@ const TrashNoteCard = ({ note, setNotes }) => {
           >
             delete_forever
           </span>
+        </div>
+        <div className="note-moment">
+          <Moment fromNow>{createdAt}</Moment>
         </div>
       </div>
     </div>

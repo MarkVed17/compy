@@ -4,6 +4,7 @@ import {
   LABEL,
   CONTENT,
   COLOR,
+  PRIORITY,
   RESET,
 } from "../constants/noteConstants";
 
@@ -21,6 +22,8 @@ export const noteDetailsReducer = (state, action) => {
       return { ...state, content: payload };
     case COLOR:
       return { ...state, color: payload };
+    case PRIORITY:
+      return { ...state, priority: payload };
     case RESET:
       return payload;
     default:

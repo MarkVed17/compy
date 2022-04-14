@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import Moment from "react-moment";
 import { useAuth, useArchives } from "../../contexts";
 import { updateNoteService, addArchiveNoteService } from "../../services";
 import { noteEditDetailsReducer } from "../../reducers";
@@ -9,11 +10,12 @@ import {
   CONTENT_TOGGLE,
   COLOR_MENU,
   LABEL_MENU,
+  PRIORITY_MENU,
 } from "../../constants/noteEditConstants";
 import "./NoteCard.css";
 
 const NoteCard = ({ note, setNotes }) => {
-  const { title, isPinned, label, content, color } = note;
+  const { title, isPinned, label, content, color, priority, createdAt } = note;
 
   const noteEditDetailsInitialState = {
     colorMenu: false,
@@ -22,10 +24,12 @@ const NoteCard = ({ note, setNotes }) => {
     contentToggle: true,
     newTitle: title,
     newContent: content,
+    priorityMenu: false,
   };
 
   const colors = ["color-1", "color-2", "color-3", "color-4"];
   const labels = ["Label 1", "Label 2"];
+  const priorities = ["HIGH", "MEDIUM", "LOW"];
 
   const [noteEditDetails, dispatchNoteEditDetails] = useReducer(
     noteEditDetailsReducer,
@@ -39,6 +43,7 @@ const NoteCard = ({ note, setNotes }) => {
     contentToggle,
     newTitle,
     newContent,
+    priorityMenu,
   } = noteEditDetails;
 
   const { auth } = useAuth();
@@ -99,6 +104,16 @@ const NoteCard = ({ note, setNotes }) => {
     if (response !== undefined) {
       setNotes(response.notes);
       setArchives(response.archives);
+    }
+  };
+
+  const priorityPicker = async (newPriority) => {
+    const response = await updateNoteService(auth.token, {
+      ...note,
+      priority: newPriority,
+    });
+    if (response !== undefined) {
+      setNotes(response);
     }
   };
 
@@ -193,11 +208,14 @@ const NoteCard = ({ note, setNotes }) => {
         )}
       </div>
 
-      {label && (
-        <div className="note-card-label" onClick={() => labelPicker("")}>
-          {label}
-        </div>
-      )}
+      <div className="notes-label-priority-wrapper">
+        {label && (
+          <div className="note-editor-label" onClick={() => labelPicker("")}>
+            {label}
+          </div>
+        )}
+        <div className="note-editor-label priority-label">{priority}</div>
+      </div>
 
       <div className="attributes-wrapper">
         <div className="attributes-actions">
@@ -209,6 +227,7 @@ const NoteCard = ({ note, setNotes }) => {
                 payload: !colorMenu,
               });
               dispatchNoteEditDetails({ type: LABEL_MENU, payload: false });
+              dispatchNoteEditDetails({ type: PRIORITY_MENU, payload: false });
             }}
             title="Choose any color"
           >
@@ -239,6 +258,7 @@ const NoteCard = ({ note, setNotes }) => {
                 payload: !labelMenu,
               });
               dispatchNoteEditDetails({ type: COLOR_MENU, payload: false });
+              dispatchNoteEditDetails({ type: PRIORITY_MENU, payload: false });
             }}
             title="Choose any Label"
           >
@@ -262,6 +282,39 @@ const NoteCard = ({ note, setNotes }) => {
               ))}
             </div>
           )}
+
+          <span
+            className="material-icons attributes-icon"
+            title="Choose any Priority"
+            onClick={() => {
+              dispatchNoteEditDetails({
+                type: PRIORITY_MENU,
+                payload: !priorityMenu,
+              });
+              dispatchNoteEditDetails({ type: COLOR_MENU, payload: false });
+              dispatchNoteEditDetails({ type: LABEL_MENU, payload: false });
+            }}
+          >
+            assignment_late
+          </span>
+          {priorityMenu && (
+            <div className="priorities-list">
+              {priorities.map((priority) => (
+                <div
+                  onClick={() => {
+                    dispatchNoteEditDetails({
+                      type: PRIORITY_MENU,
+                      payload: false,
+                    });
+                    priorityPicker(priority);
+                  }}
+                >
+                  {priority}
+                </div>
+              ))}
+            </div>
+          )}
+
           <span
             className="material-icons attributes-icon"
             title="Move to Archive"
@@ -276,6 +329,9 @@ const NoteCard = ({ note, setNotes }) => {
           >
             delete
           </span>
+        </div>
+        <div className="note-moment">
+          <Moment fromNow>{createdAt}</Moment>
         </div>
       </div>
     </div>
