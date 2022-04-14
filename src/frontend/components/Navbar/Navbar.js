@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AUTH_TOKEN, USERNAME } from "../../constants/authConstants";
 import { useAuth } from "../../contexts";
+import { Filters } from "../../components";
 import "./Navbar.css";
 
 function Navbar() {
   const [dropDownMenu, setDropDownMenu] = useState(false);
+  const [filtersMenu, setFiltersMenu] = useState(false);
   const { auth, setAuth } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const signOutHandler = () => {
     localStorage.removeItem(AUTH_TOKEN);
@@ -38,8 +41,14 @@ function Navbar() {
               placeholder="Search..."
               className="input standard nav-searchbar"
             />
-            <button className="btn btn-brand btn-accent search-btn nav-searchbar-btn">
-              <span className="material-icons nav-search-icon"> search </span>
+            <button
+              className="btn btn-brand btn-accent search-btn nav-searchbar-btn"
+              onClick={() => {
+                setFiltersMenu(!filtersMenu);
+                !filtersMenu && navigate("/search");
+              }}
+            >
+              <span className="material-icons nav-search-icon"> tune </span>
             </button>
           </div>
         )}
@@ -59,6 +68,7 @@ function Navbar() {
           </nav>
         </div>
       </header>
+      {filtersMenu && location.pathname === "/search" && <Filters />}
       {dropDownMenu &&
         (!auth.status ? (
           <div className="dropDown">
