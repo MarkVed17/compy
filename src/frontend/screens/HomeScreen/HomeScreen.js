@@ -18,7 +18,7 @@ const HomeScreen = () => {
             Compies
           </a>
         </h3>
-        <Link to="/signup" className="hero-link">
+        <Link to="/notes" className="hero-link">
           Get Started
         </Link>
         <Link to="/signin" className="login-link">
