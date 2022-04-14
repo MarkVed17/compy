@@ -1,11 +1,11 @@
-.labels-container {
+.search-container {
   display: flex;
   flex-direction: row;
   min-height: 80vh;
 }
 
-.labelled-notes-list {
+.searched-list {
   display: flex;
   flex-direction: column;
-  margin-top: 5rem;
+  margin-top: 12rem;
 }

@@ -5,6 +5,7 @@ import {
   NEW_CONTENT,
   COLOR_MENU,
   LABEL_MENU,
+  PRIORITY_MENU
 } from "../constants/noteEditConstants";
 
 export const noteEditDetailsReducer = (state, action) => {
@@ -17,6 +18,8 @@ export const noteEditDetailsReducer = (state, action) => {
       return { ...state, newTitle: payload };
     case CONTENT_TOGGLE:
       return { ...state, contentToggle: payload };
+    case PRIORITY_MENU:
+      return { ...state, priorityMenu: payload };
     case NEW_CONTENT:
       return { ...state, newContent: payload };
     case COLOR_MENU:

@@ -34,6 +34,11 @@
   color: var(--base-gray-color);
 }
 
+.notes-label-priority-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .note-editor-label {
   margin: 0 1rem;
   padding: 2px 5px;
@@ -114,6 +119,35 @@
   color: var(--font-color);
   border-bottom: 1px solid var(--base-gray-color);
   cursor: pointer;
+}
+
+.priorities-list {
+  position: absolute;
+  top: 3.5rem;
+  left: 6rem;
+  padding: 0.8rem;
+  border: 1px solid var(--base-gray-color);
+  background-color: var(--body-bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.priorities-list > div {
+  font-size: 1.2rem;
+  color: var(--font-color);
+  border-bottom: 1px solid var(--base-gray-color);
+  cursor: pointer;
+}
+
+.priorities-list > div:hover,
+.labels-list > div:hover {
+  color: var(--accent-color);
+}
+
+.priority-label {
+  margin-left: auto;
+  background-color: var(--secondary-color);
 }
 
 .add-note-btn {

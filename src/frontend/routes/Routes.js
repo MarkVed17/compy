@@ -8,6 +8,7 @@ import {
   TrashScreen,
   SignInScreen,
   SignUpScreen,
+  SearchScreen
 } from "../screens";
 import Mockman from "mockman-js";
 import { PrivateRoute } from "../components";
@@ -48,6 +49,14 @@ const Router = () => {
         element={
           <PrivateRoute>
             <TrashScreen />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="search"
+        element={
+          <PrivateRoute>
+            <SearchScreen />
           </PrivateRoute>
         }
       />

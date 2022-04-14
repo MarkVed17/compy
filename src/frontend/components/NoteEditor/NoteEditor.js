@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from "react";
+import moment from "moment";
 import { useAuth, useNotes } from "../../contexts";
 import { addNoteService } from "../../services";
 import {
@@ -8,6 +9,7 @@ import {
   COLOR,
   RESET,
 } from "../../constants/noteConstants";
+import { PRIORITY, LOW, MEDIUM, HIGH } from "../../constants/filtersConstants";
 import { noteDetailsReducer } from "../../reducers";
 import { RichTextEditor } from "../RichTextEditor/RichTextEditor";
 import "./NoteEditor.css";
@@ -19,6 +21,7 @@ const NoteEditor = () => {
     label: "",
     content: "",
     color: "note-color-4",
+    priority: LOW,
   };
 
   const colors = ["color-1", "color-2", "color-3", "color-4"];
@@ -28,10 +31,11 @@ const NoteEditor = () => {
     noteDetailsReducer,
     noteInitialState
   );
-  const { title, isPinned, label, content, color } = noteDetails;
+  const { title, isPinned, label, content, color, priority } = noteDetails;
 
   const [colorMenu, setColorMenu] = useState(false);
   const [labelMenu, setLabelMenu] = useState(false);
+  const [priorityMenu, setPriorityMenu] = useState(false);
 
   const { auth } = useAuth();
   const { setNotes } = useNotes();
@@ -39,6 +43,7 @@ const NoteEditor = () => {
   const addNewNoteHandler = async () => {
     const response = await addNoteService(auth.token, {
       ...noteDetails,
+      createdAt: moment(),
     });
     if (response !== undefined) {
       setNotes(response);
@@ -73,14 +78,17 @@ const NoteEditor = () => {
 
       <RichTextEditor content={content} setValue={dispatchNoteDetails} />
 
-      {label && (
-        <div
-          className="note-editor-label"
-          onClick={() => dispatchNoteDetails({ type: LABEL, payload: "" })}
-        >
-          {label}
-        </div>
-      )}
+      <div className="notes-label-priority-wrapper">
+        {label && (
+          <div
+            className="note-editor-label"
+            onClick={() => dispatchNoteDetails({ type: LABEL, payload: "" })}
+          >
+            {label}
+          </div>
+        )}
+        <div className="note-editor-label priority-label">{priority}</div>
+      </div>
 
       <div className="attributes-wrapper">
         <div className="attributes-actions">
@@ -89,6 +97,7 @@ const NoteEditor = () => {
             onClick={() => {
               setColorMenu(!colorMenu);
               setLabelMenu(false);
+              setPriorityMenu(false);
             }}
             title="Choose any color"
           >
@@ -117,6 +126,7 @@ const NoteEditor = () => {
             onClick={() => {
               setLabelMenu(!labelMenu);
               setColorMenu(false);
+              setPriorityMenu(false);
             }}
             title="Choose any Label"
           >
@@ -135,6 +145,46 @@ const NoteEditor = () => {
                   {label}
                 </div>
               ))}
+            </div>
+          )}
+
+          <span
+            className="material-icons attributes-icon"
+            title="Choose any Priority"
+            onClick={() => {
+              setPriorityMenu(!priorityMenu);
+              setLabelMenu(false);
+              setColorMenu(false);
+            }}
+          >
+            assignment_late
+          </span>
+          {priorityMenu && (
+            <div className="priorities-list">
+              <div
+                onClick={() => {
+                  setPriorityMenu(false);
+                  dispatchNoteDetails({ type: PRIORITY, payload: HIGH });
+                }}
+              >
+                High
+              </div>
+              <div
+                onClick={() => {
+                  setPriorityMenu(false);
+                  dispatchNoteDetails({ type: PRIORITY, payload: MEDIUM });
+                }}
+              >
+                Medium
+              </div>
+              <div
+                onClick={() => {
+                  setPriorityMenu(false);
+                  dispatchNoteDetails({ type: PRIORITY, payload: LOW });
+                }}
+              >
+                Low
+              </div>
             </div>
           )}
         </div>

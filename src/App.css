@@ -31,3 +31,8 @@
 .note-color-4 {
   background-color: var(--body-bg-color);
 }
+
+.note-moment {
+  margin-left: auto;
+  color: var(--base-gray-color);
+}
