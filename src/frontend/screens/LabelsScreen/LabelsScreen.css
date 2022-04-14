@@ -1,5 +1,11 @@
 .labels-container {
-    display: flex;
-    flex-direction: row;
-    min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+}
+
+.labelled-notes-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
 }
