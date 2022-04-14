@@ -43,8 +43,6 @@
 
 .filter-labels,
 .filter-priority {
-  /* border-right: 1px solid black; */
-  /* padding-right: 1rem; */
   display: flex;
   flex-direction: column;
 }
