@@ -7,7 +7,17 @@ const HomeScreen = () => {
     <div className="main-content">
       <div className="hero-text">
         <h1 className="hero-title">A note-taking app,</h1>
-        <h3 className="hero-subtitle">small, but effective just like <a href="https://jurassicpark.fandom.com/wiki/Compsognathus" className="compies-text" target="_blank">Compies</a></h3>
+        <h3 className="hero-subtitle">
+          small, but effective just like{" "}
+          <a
+            href="https://jurassicpark.fandom.com/wiki/Compsognathus"
+            className="compies-text"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Compies
+          </a>
+        </h3>
         <Link to="/signup" className="hero-link">
           Get Started
         </Link>
