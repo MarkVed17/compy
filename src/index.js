@@ -7,6 +7,7 @@ import {
   AuthProvider,
   NotesProvider,
   ArchivesProvider,
+  FiltersProvider,
 } from "./frontend/contexts";
 
 // Call make Server
@@ -18,7 +19,9 @@ ReactDOM.render(
       <AuthProvider>
         <NotesProvider>
           <ArchivesProvider>
-            <App />
+            <FiltersProvider>
+              <App />
+            </FiltersProvider>
           </ArchivesProvider>
         </NotesProvider>
       </AuthProvider>
