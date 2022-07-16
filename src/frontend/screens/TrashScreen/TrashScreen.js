@@ -21,7 +21,7 @@ const TrashScreen = () => {
           </div>
         ) : (
           <div>
-            <h1>Trashed Notes Will Be Visible Here</h1>
+            <h1>Trash is empty!</h1>
           </div>
         )}
       </div>

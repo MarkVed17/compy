@@ -5,6 +5,7 @@ import "./LabelsScreen.css";
 
 const LabelsScreen = () => {
   const { notes, setNotes } = useNotes();
+
   const labelOneNotes = notes
     .filter(
       (note) =>
@@ -20,6 +21,7 @@ const LabelsScreen = () => {
           note.trash === false
       )
     );
+
   const labelTwoNotes = notes
     .filter(
       (note) =>
@@ -35,6 +37,7 @@ const LabelsScreen = () => {
           note.trash === false
       )
     );
+
   return (
     <div className="labels-container">
       <Sidebar />
@@ -61,9 +64,8 @@ const LabelsScreen = () => {
           </div>
         ) : (
           <div>
-            <h1 className="labelled-list-title">
-              Labeled Notes Will Be Visible Here
-            </h1>
+            <h1 className="labelled-list-title">Nothing here!</h1>
+            <h3> Add a label to your note to see something...</h3>
           </div>
         )}
       </div>

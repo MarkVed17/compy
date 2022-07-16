@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AUTH_TOKEN, USERNAME } from "../../constants/authConstants";
 import { useAuth } from "../../contexts";
 import { Filters } from "../../components";
 import "./Navbar.css";
+import { useOnClickOutside } from "../../hooks";
 
 function Navbar() {
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -22,6 +23,9 @@ function Navbar() {
       userName: null,
     }));
   };
+
+  const ref = useRef();
+  useOnClickOutside(ref, () => setDropDownMenu(false));
 
   return (
     <>
@@ -47,6 +51,7 @@ function Navbar() {
                 setFiltersMenu(!filtersMenu);
                 !filtersMenu && navigate("/search");
               }}
+              title="Open Filters Modal"
             >
               <span className="material-icons nav-search-icon"> tune </span>
             </button>
@@ -71,7 +76,7 @@ function Navbar() {
       {filtersMenu && location.pathname === "/search" && <Filters />}
       {dropDownMenu &&
         (!auth.status ? (
-          <div className="dropDown">
+          <div ref={ref} className="dropDown">
             <NavLink
               to="/signin"
               className={({ isActive }) =>
@@ -92,7 +97,7 @@ function Navbar() {
             </NavLink>
           </div>
         ) : (
-          <div className="dropDown">
+          <div ref={ref} className="dropDown">
             <NavLink
               to="/signin"
               className={({ isActive }) =>
