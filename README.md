@@ -1,7 +1,7 @@
 
 # [Compy](https://compy.netlify.app/) | Notes App 📝
 
-Here's your features-packed note-taking app. Organize and carry anywhere all of your notes in one spot.
+Here's your features-packed note-taking app. Organize and carry anywhere all of your notes in one spot with Compy.
 
 ## Link
 
