@@ -23,7 +23,8 @@ const ArchivesScreen = () => {
           </div>
         ) : (
           <div>
-            <h1>Archived Notes Will Be Visible Here</h1>
+            <h1>Nothing here!</h1>
+            <h3>Archive any note to see something...</h3>
           </div>
         )}
       </div>
