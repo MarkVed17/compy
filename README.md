@@ -1,7 +1,7 @@
 
 # [Compy](https://compy.netlify.app/) | Notes App 📝
 
-Meet your modern note-taking app. Manage your daily tasks and workflow in a modern way & boost your efficiency without any effort by using Kafka.
+Here's your features-packed note-taking app. Organize and carry anywhere all of your notes in one spot.
 
 ## Link
 
