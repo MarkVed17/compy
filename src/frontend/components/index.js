@@ -11,3 +11,4 @@ export { TrashNoteCard } from "./TrashNoteCard/TrashNoteCard";
 export { ArchiveNoteCard } from "./ArchiveNoteCard/ArchiveNoteCard";
 export { NoteCardEditor } from "./NoteCardEditor/NoteCardEditor";
 export { Filters } from "./Filters/Filters";
+export { ScrollToTop } from "./ScrollToTop/ScrollToTop";
